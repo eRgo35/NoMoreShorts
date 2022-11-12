@@ -1,0 +1,28 @@
+{
+  "name": "nomoreshorts",
+  "version": "1.0.0",
+  "description": "Force YouTube to open shorts as normal videos",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eRgo35/NoMoreShorts.git"
+  },
+  "keywords": [
+    "firefox",
+    "extensions",
+    "manifestv2"
+  ],
+  "author": "Michał Czyż",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eRgo35/NoMoreShorts/issues"
+  },
+  "homepage": "https://github.com/eRgo35/NoMoreShorts#readme",
+  "devDependencies": {
+    "eslint": "^8.27.0"
+  }
+}

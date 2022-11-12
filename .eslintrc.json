@@ -1,0 +1,10 @@
+{
+  "env": {
+      "browser": true,
+      "es2018": true,
+      "webextensions": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "NoMoreShorts",
+  "version": "1.0",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "nomoreshorts@czyz.icu",
+      "strict_min_version": "58.0a1"
+    }
+  },
+
+  "description": "Force YouTube to open shorts as normal videos",
+  "icons": {
+    "48": "icons/logo48.png"
+  },
+
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation",
+    "*://*.youtube.com/*"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
