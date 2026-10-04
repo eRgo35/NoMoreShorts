@@ -25,7 +25,7 @@ Query string and hash are dropped on the rewritten URL — YouTube Shorts URLs e
 
 ## Development
 
-Requirements: Node 20+, `rsvg-convert` (from librsvg) for icon generation.
+Requirements: Node 22+, `rsvg-convert` (from librsvg) for icon generation.
 
 ```bash
 npm install

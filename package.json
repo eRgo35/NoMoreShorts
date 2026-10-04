@@ -5,6 +5,9 @@
   "type": "module",
   "private": true,
   "license": "ISC",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "vitest run",
