@@ -12,27 +12,54 @@
     return true;
   }
 
-  // YouTube's SPA often calls history.pushState with a *relative* URL like
-  // "/shorts/<id>". The pushState `url` argument then doesn't match our
-  // absolute URL regex. After pushState returns, however, location.href
-  // always reflects the resolved absolute URL. So we let the original call
-  // happen, then check location.href. This catches both absolute and
-  // relative pushState URL arguments.
-  const origPush = history.pushState;
-  history.pushState = function (_state, _title, _url) {
-    const result = origPush.apply(this, arguments);
-    if (redirectIfShort(location.href)) return undefined;
-    return result;
-  };
+  // YouTube is a SPA: navigation between Shorts and /watch pages happens
+  // via history.pushState/replaceState without firing a network request,
+  // so the declarativeNetRequest rule never sees it. We need to detect
+  // SPA navigations from the content script.
+  //
+  // Approach: observe mutations on the document. YouTube's React app
+  // mutates the DOM on every navigation, and location.href is shared
+  // between the page world and content scripts. When the URL becomes a
+  // /shorts URL, force a navigation to /watch?v=<id>.
+  //
+  // This works from the ISOLATED world (default content_scripts world)
+  // because location.href is shared, unlike the history object whose
+  // pushState method is not shared across worlds in Chrome MV3. So we
+  // don't need `world: "MAIN"` (which would force a Firefox 128+ floor
+  // instead of the current 115+).
+  let lastUrl = location.href;
+  redirectIfShort(lastUrl);
 
-  const origReplace = history.replaceState;
-  history.replaceState = function (_state, _title, _url) {
-    const result = origReplace.apply(this, arguments);
-    if (redirectIfShort(location.href)) return undefined;
-    return result;
-  };
+  const observer = new MutationObserver(() => {
+    const current = location.href;
+    if (current === lastUrl) return;
+    lastUrl = current;
+    redirectIfShort(current);
+  });
 
+  if (document.body) {
+    observer.observe(document.body, { childList: true, subtree: true });
+  } else {
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        observer.observe(document.body, { childList: true, subtree: true });
+      },
+      { once: true },
+    );
+  }
+
+  // Backstop: popstate fires for back/forward navigation in some SPA
+  // setups. YouTube uses history.pushState rather than hashchange or
+  // popstate for its SPA transitions, so this is mostly belt-and-braces.
   window.addEventListener("popstate", () => {
     redirectIfShort(location.href);
   });
+
+  // Clean up on tab close so we don't leak observers.
+  window.addEventListener(
+    "pagehide",
+    () => observer.disconnect(),
+    { once: true },
+  );
 })();
