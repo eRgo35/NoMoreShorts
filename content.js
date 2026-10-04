@@ -12,20 +12,24 @@
     return true;
   }
 
+  // YouTube's SPA often calls history.pushState with a *relative* URL like
+  // "/shorts/<id>". The pushState `url` argument then doesn't match our
+  // absolute URL regex. After pushState returns, however, location.href
+  // always reflects the resolved absolute URL. So we let the original call
+  // happen, then check location.href. This catches both absolute and
+  // relative pushState URL arguments.
   const origPush = history.pushState;
-  history.pushState = function (state, title, url) {
-    if (url !== undefined && redirectIfShort(String(url))) {
-      return undefined; // caller sees the call as a no-op; navigation has begun
-    }
-    return origPush.apply(this, arguments);
+  history.pushState = function (_state, _title, _url) {
+    const result = origPush.apply(this, arguments);
+    if (redirectIfShort(location.href)) return undefined;
+    return result;
   };
 
   const origReplace = history.replaceState;
-  history.replaceState = function (state, title, url) {
-    if (url !== undefined && redirectIfShort(String(url))) {
-      return undefined;
-    }
-    return origReplace.apply(this, arguments);
+  history.replaceState = function (_state, _title, _url) {
+    const result = origReplace.apply(this, arguments);
+    if (redirectIfShort(location.href)) return undefined;
+    return result;
   };
 
   window.addEventListener("popstate", () => {
