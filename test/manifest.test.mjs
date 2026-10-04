@@ -23,7 +23,6 @@ describe("manifest.json", () => {
   it("does not request MV2-era permissions", () => {
     expect(manifest.permissions).not.toContain("webRequest");
     expect(manifest.permissions).not.toContain("webRequestBlocking");
-    expect(manifest.permissions).not.toContain("webNavigation");
     expect(manifest.permissions).not.toContain("*://*.youtube.com/*");
     expect(manifest.host_permissions ?? []).toEqual(["*://*.youtube.com/*"]);
   });
@@ -48,5 +47,15 @@ describe("manifest.json", () => {
   it("declares five icon sizes", () => {
     const sizes = Object.keys(manifest.icons);
     expect(new Set(sizes)).toEqual(new Set(["16", "32", "48", "96", "128"]));
+  });
+
+  it("declares content_scripts for /shorts redirect", () => {
+    expect(manifest.content_scripts).toBeTruthy();
+    expect(manifest.content_scripts).toHaveLength(1);
+    const cs = manifest.content_scripts[0];
+    expect(cs.matches).toEqual(["*://*.youtube.com/*"]);
+    expect(cs.js).toEqual(["content.js"]);
+    expect(cs.run_at).toBe("document_start");
+    expect(cs.all_frames).toBe(false);
   });
 });

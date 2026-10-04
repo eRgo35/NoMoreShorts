@@ -53,4 +53,25 @@ describe("rules.json", () => {
   it("does not use RE2-incompatible syntax (lookbehind)", () => {
     expect(rules[0].condition.regexFilter).not.toMatch(/\(\?<=|\(\?<!|\(\k</);
   });
+
+  it("matches /shorts URLs with query strings", () => {
+    const re = new RE2(rules[0].condition.regexFilter);
+    const url = "https://www.youtube.com/shorts/dQw4w9WgXcQ?feature=share";
+    const m = re.exec(url);
+    expect(m).not.toBeNull();
+    expect(m[1]).toBe("dQw4w9WgXcQ");
+    const substituted = rules[0].action.redirect.regexSubstitution.replace(
+      "\\1",
+      m[1],
+    );
+    expect(substituted).toBe("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+  });
+
+  it("matches /shorts URLs with hash fragments", () => {
+    const re = new RE2(rules[0].condition.regexFilter);
+    const url = "https://www.youtube.com/shorts/dQw4w9WgXcQ#t=10s";
+    const m = re.exec(url);
+    expect(m).not.toBeNull();
+    expect(m[1]).toBe("dQw4w9WgXcQ");
+  });
 });
