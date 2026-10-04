@@ -1,6 +1,6 @@
 {
   "name": "nomoreshorts",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Force YouTube to open shorts as normal videos",
   "type": "module",
   "private": true,
