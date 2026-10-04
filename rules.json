@@ -9,7 +9,7 @@
       }
     },
     "condition": {
-      "regexFilter": "^https?://(?:www\\.)?youtube\\.com/shorts/([^/?#]+)/?$",
+      "regexFilter": "^https?://(?:www\\.)?youtube\\.com/shorts/([^/?#]+)/?(?:[?#].*)?$",
       "resourceTypes": ["main_frame", "sub_frame"]
     }
   }
