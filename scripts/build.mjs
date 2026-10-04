@@ -15,7 +15,7 @@ const zipPath = resolve(distRoot, zipName);
 rmSync(distRoot, { recursive: true, force: true });
 mkdirSync(stageDir, { recursive: true });
 
-const entries = ["manifest.json", "rules.json", "background.js"];
+const entries = ["manifest.json", "rules.json", "background.js", "content.js"];
 for (const entry of entries) {
   await (await import("node:fs/promises")).copyFile(
     resolve(root, entry),
