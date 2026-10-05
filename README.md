@@ -10,7 +10,7 @@ Install from the Firefox Add-ons page (search for NoMoreShorts).
 
 ### Chromium (Chrome, Edge, Brave, Opera)
 
-Download `no-more-shorts-<version>.zip` from the [latest GitHub release](https://github.com/eRgo35/NoMoreShorts/releases/latest).
+Download `NoMoreShorts-v<version>.zip` from the [latest GitHub release](https://github.com/eRgo35/NoMoreShorts/releases/latest).
 
 1. Extract the zip.
 2. Open `chrome://extensions` (or `edge://extensions`).
@@ -32,7 +32,7 @@ npm install
 npm run lint
 npm test
 npm run build:icons   # regenerates icons/icon-*.png from icons/source.svg
-npm run build         # produces dist/no-more-shorts-<version>.zip
+npm run build         # produces dist/NoMoreShorts-v<version>.zip
 ```
 
 To load the build into Firefox for local development: `about:debugging` → **This Firefox** → **Load Temporary Add-on…** → pick `dist/contents/manifest.json`.

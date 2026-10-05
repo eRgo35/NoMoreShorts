@@ -9,7 +9,7 @@ const manifest = JSON.parse(
   await (await import("node:fs/promises")).readFile(resolve(root, "manifest.json"), "utf8"),
 );
 const version = manifest.version;
-const zipName = `no-more-shorts-${version}.zip`;
+const zipName = `NoMoreShorts-v${version}.zip`;
 const zipPath = resolve(distRoot, zipName);
 
 rmSync(distRoot, { recursive: true, force: true });
