@@ -29,5 +29,3 @@ jobs:
           path: |
             dist/NoMoreShorts-v*.xpi
             dist/NoMoreShorts-v*.zip
-            dist/NoMoreShorts-v*-chrome.zip
-            dist/NoMoreShorts-v*-firefox.zip
