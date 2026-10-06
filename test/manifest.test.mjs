@@ -44,6 +44,27 @@ describe("manifest.json", () => {
     );
   });
 
+  it("declares Firefox data_collection_permissions as 'none'", () => {
+    expect(
+      manifest.browser_specific_settings.gecko.data_collection_permissions,
+    ).toBe("none");
+  });
+
+  it("does not declare a top-level background twice in source", () => {
+    // Re-parse from raw text. If the manifest has two top-level "background"
+    // keys, JSON.parse keeps only the second one; we want to fail the test in
+    // that case by counting them with a tolerant parser.
+    const raw = readFileSync(manifestPath, "utf8");
+    let duplicates = 0;
+    JSON.parse(raw, (key, value) => {
+      if (key === "background" && value && value.service_worker !== undefined) {
+        duplicates += 1;
+      }
+      return value;
+    });
+    expect(duplicates).toBe(1);
+  });
+
   it("declares five icon sizes", () => {
     const sizes = Object.keys(manifest.icons);
     expect(new Set(sizes)).toEqual(new Set(["16", "32", "48", "96", "128"]));
