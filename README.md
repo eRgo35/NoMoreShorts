@@ -15,7 +15,7 @@ Download `NoMoreShorts-v<version>.zip` from the [latest GitHub release](https://
 1. Extract the zip.
 2. Open `chrome://extensions` (or `edge://extensions`).
 3. Enable **Developer mode** in the top-right.
-4. Click **Load unpacked** and select the extracted folder.
+4. Click **Load unpacked** and select the extracted `chrome/` folder.
 
 ## How it works
 
@@ -32,12 +32,12 @@ npm install
 npm run lint
 npm test
 npm run build:icons   # regenerates icons/icon-*.png from icons/source.svg
-npm run build         # produces dist/NoMoreShorts-v<version>.zip
+npm run build         # produces dist/chrome/, dist/firefox/, NoMoreShorts-v<version>.xpi, NoMoreShorts-v<version>.zip
 ```
 
-To load the build into Firefox for local development: `about:debugging` → **This Firefox** → **Load Temporary Add-on…** → pick `dist/contents/manifest.json`.
+To load the build into Firefox for local development: `about:debugging` → **This Firefox** → **Load Temporary Add-on…** → pick `dist/firefox/manifest.json`.
 
-To load into Chromium: `chrome://extensions` with developer mode enabled, **Load unpacked**, pick `dist/contents/`.
+To load into Chromium: `chrome://extensions` with developer mode enabled, **Load unpacked**, pick `dist/chrome/`.
 
 ## License
 

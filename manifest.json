@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NoMoreShorts",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Force YouTube to open shorts as normal videos",
 
   "browser_specific_settings": {
