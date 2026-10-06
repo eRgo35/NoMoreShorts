@@ -27,7 +27,7 @@ jobs:
         with:
           name: no-more-shorts-build
           path: |
-            dist/*.xpi
-            dist/*.zip
-            dist/chrome/**
-            dist/firefox/**
+            dist/NoMoreShorts-v*.xpi
+            dist/NoMoreShorts-v*.zip
+            dist/NoMoreShorts-v*-chrome.zip
+            dist/NoMoreShorts-v*-firefox.zip

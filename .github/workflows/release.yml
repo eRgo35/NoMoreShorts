@@ -27,8 +27,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/*.xpi
-            dist/*.zip
-            dist/chrome/**
-            dist/firefox/**
+            dist/NoMoreShorts-v*.xpi
+            dist/NoMoreShorts-v*.zip
+            dist/NoMoreShorts-v*-chrome.zip
+            dist/NoMoreShorts-v*-firefox.zip
           generate_release_notes: true

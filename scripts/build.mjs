@@ -14,8 +14,12 @@ const chromeDir = resolve(distRoot, "chrome");
 const firefoxDir = resolve(distRoot, "firefox");
 const zipName = `NoMoreShorts-v${version}.zip`;
 const xpiName = `NoMoreShorts-v${version}.xpi`;
+const chromeZipName = `NoMoreShorts-v${version}-chrome.zip`;
+const firefoxZipName = `NoMoreShorts-v${version}-firefox.zip`;
 const zipPath = resolve(distRoot, zipName);
 const xpiPath = resolve(distRoot, xpiName);
+const chromeZipPath = resolve(distRoot, chromeZipName);
+const firefoxZipPath = resolve(distRoot, firefoxZipName);
 
 rmSync(distRoot, { recursive: true, force: true });
 mkdirSync(chromeDir, { recursive: true });
@@ -75,7 +79,15 @@ function packZip(target, sourceDir) {
 await packZip(zipPath, firefoxDir);
 await packZip(xpiPath, firefoxDir);
 
+// Bundle each browser's unpacked folder as a zip so users download a single
+// archive and extract to get a loadable folder. The XPI is the same archive
+// shape but renamed for Firefox's "Install Add-on From File" flow.
+await packZip(chromeZipPath, chromeDir);
+await packZip(firefoxZipPath, firefoxDir);
+
 console.log(`Chrome (unpacked): ${chromeDir}`);
 console.log(`Firefox (unpacked): ${firefoxDir}`);
 console.log(`Built ${zipPath} (${statSync(zipPath).size} bytes)`);
 console.log(`Built ${xpiPath} (${statSync(xpiPath).size} bytes)`);
+console.log(`Built ${chromeZipPath} (${statSync(chromeZipPath).size} bytes)`);
+console.log(`Built ${firefoxZipPath} (${statSync(firefoxZipPath).size} bytes)`);
