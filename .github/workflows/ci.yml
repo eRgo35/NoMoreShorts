@@ -22,8 +22,12 @@ jobs:
       - run: npm test
       - run: npm run build:icons
       - run: npm run build
-      - name: Upload build artifact
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: no-more-shorts-zip
-          path: dist/*.zip
+          name: no-more-shorts-build
+          path: |
+            dist/*.xpi
+            dist/*.zip
+            dist/chrome/**
+            dist/firefox/**

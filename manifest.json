@@ -7,8 +7,16 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "nomoreshorts@czyz.icu",
-      "strict_min_version": "115.0a1"
+      "strict_min_version": "115.0a1",
+      "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+      }
     }
+  },
+
+  "background": {
+    "service_worker": "background.js"
   },
 
   "icons": {

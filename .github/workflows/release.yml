@@ -23,8 +23,12 @@ jobs:
       - run: npm test
       - run: npm run build:icons
       - run: npm run build
-      - name: Attach zip to release
+      - name: Attach artifacts to release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*.zip
+          files: |
+            dist/*.xpi
+            dist/*.zip
+            dist/chrome/**
+            dist/firefox/**
           generate_release_notes: true
