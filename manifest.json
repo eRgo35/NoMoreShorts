@@ -1,14 +1,16 @@
 {
   "manifest_version": 3,
   "name": "NoMoreShorts",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Force YouTube to open shorts as normal videos",
 
   "browser_specific_settings": {
     "gecko": {
       "id": "nomoreshorts@czyz.icu",
-      "strict_min_version": "115.0a1",
-      "data_collection_permissions": "none",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      },
       "background": {
         "scripts": ["background.js"],
         "persistent": false

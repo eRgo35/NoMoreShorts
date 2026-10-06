@@ -40,14 +40,14 @@ describe("manifest.json", () => {
       "nomoreshorts@czyz.icu",
     );
     expect(manifest.browser_specific_settings.gecko.strict_min_version).toBe(
-      "115.0a1",
+      "140.0",
     );
   });
 
-  it("declares Firefox data_collection_permissions as 'none'", () => {
+  it("declares Firefox data_collection_permissions with no collection", () => {
     expect(
       manifest.browser_specific_settings.gecko.data_collection_permissions,
-    ).toBe("none");
+    ).toEqual({ required: ["none"] });
   });
 
   it("does not declare a top-level background twice in source", () => {
